@@ -1,0 +1,30 @@
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+  <div class="card card0 border-0">
+      <div class="row d-flex">
+          <div class="col-lg-6">
+              <div class="card1 pb-5">                  
+                  <div class="row px-3 justify-content-center ml-5  mt-4 mb-5 border-line"> <img src="https://qph.fs.quoracdn.net/main-qimg-253dc2e8c13b879d705a34489e8966f9" class="image rounded-circle"> </div>
+              </div>
+          </div>
+          <div class="col-lg-6">
+              <div class="card2 card border-0 px-4 py-5">
+                  <div class="row mb-4 px-3 text-center">
+                      <h2 class="mb-0 mr-4 mt-2 mx-auto ">{{titulo}}</h2>
+                  </div>
+                  <div class="row px-3 mb-4">
+                      
+                  </div>
+                  <div class="row px-3"> <label class="mb-1">
+                          <h6 class="mb-0 text-sm"><i class="fas fa-user-secret"></i> Usuario</h6>
+                      </label> <input [(ngModel)]="usuario.username" type="text" class="form-control" name="username" id="username" placeholder="Username" required autofocus> </div>
+                  <div class="row px-3"> <label class="mb-1">
+                          <h6 class="mb-0 text-sm mt-3"> <i class="fas fa-lock"></i> Contraseña</h6>
+                      </label> <input [(ngModel)]="usuario.password" type="password" class="form-control" name="password" id="password" placeholder="Password" required> </div>
+                  <div class="row mb-3 px-3 mt-3"> <input (click)="login()" type="submit" class="btn btn-lg btn-primary btn-block" value="Ingresar"> </div>
+                  
+              </div>
+          </div>
+      </div>
+      
+  </div>
+</div>

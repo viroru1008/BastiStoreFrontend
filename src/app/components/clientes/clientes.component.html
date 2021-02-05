@@ -1,0 +1,64 @@
+<div class="card bg-light mb-3">
+  <div class="card-header text-center h2"><i class="fas fa-cart-plus"></i> {{titulo}}</div>
+  <div class="card-body">
+    <button class="btn btn-outline-primary mb-3 " routerLink="/clientes/form"><i class="fas fa-plus-circle"></i></button>
+    <div class="alert alert-info" *ngIf="clientes?.length == 0">
+      No hay clientes en el sistema
+    </div>
+    <div *ngIf="clientes?.length > 0">
+      <table class="table ">
+        <thead class="table-dark">
+          <tr>
+            <th>Id</th>
+            <th>Documento</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Dirección</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Estado</th>
+            <th>Fecha Creación</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clientes">
+            <td>{{cliente.clientId}}</td>
+            <td>{{cliente.document}}</td>
+            <td>{{cliente.name}}</td>
+            <td>{{cliente.lastname}}</td>
+            <td>{{cliente.address}}</td>
+            <td>{{cliente.email}}</td>
+            <td>{{cliente.phone}}</td>
+            <td *ngIf="cliente.active">
+              <button class="btn btn-outline-danger" (click)="cambiarEstado(cliente)"><i class="fas fa-window-close"></i> Desactivar</button>
+            </td>
+            <td *ngIf="!cliente.active">
+              <button class="btn btn-outline-success" (click)="cambiarEstado(cliente)"><i class="fas fa-clipboard-check"></i> Activado</button>
+            </td>
+            <td>{{cliente.creationDate | date}}</td>
+            <td>
+              <button class="btn btn-outline-warning " [routerLink]="['/clientes/form', cliente.clientId]"><i class="fas fa-edit"></i></button>
+            </td>
+            <td>
+              <button class="btn btn-outline-danger " (click)="eliminar(cliente)"><i class="fas fa-trash-alt"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <mat-paginator [length]="totalRegistros"
+                    [pageSize]="totalPorPagina"
+                    [pageIndex]="paginaActual"
+                    [pageSizeOptions]="pageSizeOptions"
+                    (page) = "paginar($event)"
+                    showFirstLastButtons
+                    class="float-left mx-2"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+
+
+

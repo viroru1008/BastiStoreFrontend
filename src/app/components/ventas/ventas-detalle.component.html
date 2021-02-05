@@ -1,0 +1,41 @@
+<div class="card bg-light" *ngIf="venta">
+  <div class="card-header text-center  h2">{{titulo}}</div>
+  <div class="card-body">
+    <button class="btn btn-outline-danger my-2" routerLink="/ventas"><i class="fas fa-reply"></i> </button>
+    <ul class="list-group my-2" *ngIf="venta.client">
+      <li class="list-group-item list-group-item-dark">Datos del Cliente</li>
+      <li class="list-group-item">Nombre: {{venta.client.name}}</li>
+      <li class="list-group-item">Apellido: {{venta.client.lastname}}</li>
+      <li class="list-group-item">Direccion: {{venta.client.address}}</li>
+      <li class="list-group-item">Email: {{venta.client.email}}</li>
+      <li class="list-group-item">Teléfono: {{venta.client.phone}}</li>
+    </ul>
+
+    <ul class="list-group my-2">
+      <li class="list-group-item list-group-item-dark">Datos de la Factura</li>
+      <li class="list-group-item">Número Factura: {{venta.saleId}}</li>
+      <li class="list-group-item">Fecha Creación: {{venta.creationDate | date}}</li>
+      <li class="list-group-item">Estado: {{venta.active}}</li>
+    </ul>
+
+    <table class="table table-stripe  table-bordered my-3">
+      <thead class="table-dark">
+        <tr>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of venta.saleProducts">
+          <td>{{item.product.name}}</td>
+          <td>{{item.product.price | currency}}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{item.product.price * item.quantity | currency}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h1 class="float-right mt-4" *ngIf="venta.saleProducts.length > 0">Total  Venta: <span class="badge badge-success ">{{ venta.purchaseValue | currency }}</span></h1>
+  </div>
+</div>

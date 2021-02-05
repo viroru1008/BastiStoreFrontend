@@ -1,0 +1,57 @@
+<div class="card bg-light mb-3">
+  <div class="card-header text-center h2"><i class="fas fa-cart-plus"></i> {{titulo}}</div>
+  <div class="card-body">
+    <button class="btn btn-outline-primary mb-3 " routerLink="/ventas/form"><i class="fas fa-plus-circle"></i></button>
+    <div class="alert alert-info" *ngIf="ventas?.length == 0">
+      No hay ventas en el sistema
+    </div>
+    <div *ngIf="ventas?.length > 0">
+      <table class="table ">
+        <thead class="table-dark">
+            <tr>
+              <th>Id</th>
+              <th>Cliente</th>
+              <th>Valor Venta</th>
+              <th>Estado</th>
+              <th>Fecha Creación</th>
+              <th>Ver</th>
+              <th>Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let venta of ventas">
+              <td>{{venta.saleId}}</td>
+              <td>{{venta.client.name}} {{venta.client.lastname}}</td>
+              <td>{{venta.purchaseValue | currency}}</td>
+  
+            <td *ngIf="venta.active">
+              <button class="btn btn-outline-danger" (click)="cambiarEstado(venta)"><i class="fas fa-window-close"></i> Desactivar</button>
+            </td>
+            <td *ngIf="!venta.active">
+              <button class="btn btn-outline-success" (click)="cambiarEstado(venta)"><i class="fas fa-clipboard-check"></i> Activar</button>
+            </td>
+            <td>{{venta.creationDate | date}}</td>
+            <td>
+              <button class="btn btn-outline-info" [routerLink]="['/ventas/detalle', venta.saleId]"><i class="fas fa-eye"></i> </button>
+            </td>
+            <td>
+              <button class="btn btn-outline-danger " (click)="eliminar(venta)"><i class="fas fa-trash-alt"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <mat-paginator [length]="totalRegistros"
+                    [pageSize]="totalPorPagina"
+                    [pageIndex]="paginaActual"
+                    [pageSizeOptions]="pageSizeOptions"
+                    (page) = "paginar($event)"
+                    showFirstLastButtons
+                    class="float-left mx-2"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+
+
+

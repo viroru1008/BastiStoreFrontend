@@ -1,0 +1,64 @@
+<div class="card bg-light mb-3">
+  <div class="card-header h2 text-center">{{titulo}}</div>
+  <div class="card-body">
+    <button class="btn btn-outline-danger my-2" routerLink="/ventas"><i class="fas fa-reply"></i> </button>
+    <form autocomplete="off" #ventaForm="ngForm">
+      <div class="form-group">
+        <label for="clientId" id="clientId">Cliente</label>
+        <select name="clienteId" [(ngModel)]="venta.clientId" class="form-control" autofocus #clientId="ngModel" required>
+          <option [ngValue]="undefined" disabled>Seleccione un cliente</option>
+          <option *ngFor="let cliente of clientes" [ngValue]="cliente.clientId">{{cliente.name}} {{cliente.lastname}}</option>
+        </select>
+        <div class="alert alert-danger" *ngIf="clientId.invalid && (clientId.dirty || clientId.touched)">
+          <div *ngIf="clientId.errors.required">
+            El cliente es requerido
+          </div>
+        </div>
+      </div>
+      <br>
+      <p>Añadir productos a la venta: </p>
+      <div class="form-row">
+        <div class="form-group col-md-5">
+          <select name="productoSeleccionado" [(ngModel)]="productoSeleccionado" class="form-control" autofocus #clientId="ngModel">
+            <option [ngValue]="undefined" disabled>Seleccione un Producto</option>
+            <option *ngFor="let producto of productos" [ngValue]="producto">{{producto.name}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <input [(ngModel)]="cantidad" class="form-control" type="text" name="cantidad" placeholder="Ingrese Cantidad">
+        </div>
+        <div class="form-group col-md-3">
+           <input class="btn btn-info" value="Agregar" (click)="agregarProducto()">
+        </div>
+      </div>
+      <div class="alert alert-info my-4" *ngIf="venta.saleProducts.length == 0">
+        No hay productos agregados a la venta
+      </div>
+      <table class="table table-stripe table-hover table-sm" *ngIf="venta.saleProducts.length > 0">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of venta.saleProducts">
+            <td>{{item.product.name}}</td>
+            <td>{{item.product.price | currency}}</td>
+            <td><input class="form-control col-sm-4" type="number" value="{{item.quantity}}" (change)="actualizarCantidad(item.product.productId, $event)"></td>
+            <td>{{item.product.price * item.quantity | currency}}</td>
+            <td><button class="btn btn-danger sm" type="button" (click)="eliminarProductoFacturado(item.product.productId)">X</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <h1 class="float-right" *ngIf="venta.saleProducts.length > 0"> Total: <span class="badge badge-success">{{ calcularTotal() | currency }}</span></h1>
+      <div class="form-group">
+        <button class="btn btn-primary" (click)="crear()" [disabled]="ventaForm.form.invalid || venta.saleProducts.length == 0">Crear</button>
+      </div>
+    </form>
+  </div>
+</div>
+

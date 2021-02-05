@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg nav-pills navbar-dark bg-menu mb-5">
+  <a class="navbar-brand" href="#" style="font-size:30px">
+    <img
+    class="rounded-circle"
+      width="60"
+      alt="Angular Logo"
+      src="favicon.ico"
+    />
+    Basti Store
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav  mr-auto fs">
+      <li class="nav-item ">
+        <a class="nav-link " href="#" routerLink="/productos" routerLinkActive="active">Productos </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" routerLink="/clientes" routerLinkActive="active">Clientes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" routerLink="/ventas" routerLinkActive="active">Ventas</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav navbar-right">
+      <li *ngIf="!authenticado()">
+        <a href="#" class="btn btn-outline-primary" routerLink="/login" routerLinkActive="active">Ingresar</a>
+      </li>
+      <li *ngIf="authenticado()" class="dropdown mr-5">
+        <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="far fa-user"> </i> {{usuario}}
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <button (click)="logout()" type="submit" class="dropdown-item">Cerrar Sesión</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+

@@ -1,0 +1,51 @@
+<div class="card bg-light card-p mb-3">
+  <div class="card-header text-center h2">{{titulo}}</div>
+  <div class="card-body mx-auto">
+    <button class="btn btn-outline-danger my-2 mb-4" routerLink="/productos"><i class="fas fa-reply"></i> </button>
+    <form autocomplete="off" #productoForm="ngForm">
+      <div class="form-group">
+        <div></div>
+        <label class="" for="code" id="code">Código</label>
+        <input [(ngModel)]="producto.code" class="form-control entrada" type="text" name="code" autofocus required minlength="4" maxlength="6" pattern="[0-9]{4,6}" #code="ngModel">
+        <div class="alert alert-danger" *ngIf="error">
+          {{error.mensaje}}
+        </div>
+        <div class="alert alert-danger" *ngIf="code.invalid && (code.dirty || code.touched)">
+          <div *ngIf="code.errors.required">
+            El código es requerido
+          </div>
+          <div *ngIf="code.errors.minlength">
+            El código debe tener al menos 4 números
+          </div>
+          <div *ngIf="code.errors.maxlength">
+            El código debe tener máximo 6 números
+          </div>
+          <div *ngIf="code.errors.pattern">
+            El código debe ser numérico
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name" id="name">Nombre</label>
+        <input [(ngModel)]="producto.name" class="form-control entrada" type="text" name="name" required #name="ngModel">
+      </div>
+      <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+        <div *ngIf="name.errors.required">
+          El código es requerido
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="price" id="price">Precio</label>
+        <input [(ngModel)]="producto.price" class="form-control entrada " type="text" name="price" required #price="ngModel">
+      </div>
+      <div class="alert alert-danger" *ngIf="price.invalid && (price.dirty || price.touched)">
+        <div *ngIf="price.errors.required">
+          El precio es requerido
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" (click)="producto.productId? editar(): crear()" [disabled]="!productoForm.form.valid">{{producto.productId? 'Editar':'Crear'}}</button>
+      </div>
+    </form>
+  </div>
+</div>
